@@ -132,6 +132,48 @@ footer nav a { margin-right: 18px; }
 <hr class="rib">
 
 <section>
+  <p class="label">the_two_lenses</p>
+  <h2>Two bodies of work that pull in different directions.</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>The Architect Elevator</h3>
+      <p>Gregor Hohpe. Architects ride between the penthouse where business decisions happen and the engine room where systems run.</p>
+      <ul>
+        <li>A decision described on one floor is not a decision.</li>
+        <li>Architecture is selling options, and options have a premium. Here an option is a decision kept open for later, as in finance: the less certain the future, the more it is worth. The premium is what keeping it open costs now, such as an abstraction layer or a second deployment.</li>
+        <li>Coupling has a price on both sides: loose coupling adds overhead and makes the flow harder to follow, tight coupling makes a change on one side propagate to the other.</li>
+        <li>New technology punishes bad habits: it does not fix the habit that made the old system painful, so name the habit before you switch.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Residuality Theory</h3>
+      <p>Barry O'Reilly. The business environment is not a stable system with knowable probabilities.</p>
+      <ul>
+        <li>Hit the naive design with random stressors, including absurd ones: polite ones only find the couplings you already suspected.</li>
+        <li>Let the component structure emerge from what survives. Stop when new stressors stop producing new design changes.</li>
+        <li>Two components that break under the same stressor are coupled, whether or not the code shows it.</li>
+        <li>No likelihoods. Every stressor is treated as if it will happen.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="fine">They disagree in a useful way. The elevator says resilience is not free and asks who upstairs cares about this stressor. Residuality says your tidy price table assumes you know which future arrives. Rung 5 below runs that argument on every decision.</p>
+  <table>
+    <thead><tr><th>residuality term</th><th>what it means in commands and records</th></tr></thead>
+    <tbody>
+      <tr><td>stressor</td><td>Anything in the environment that could change or break the system. Not a risk: no probability, treated as if it will happen.</td></tr>
+      <tr><td>residue</td><td>What remains after a stressor hits. What survives, what breaks, and what you would change to survive it.</td></tr>
+      <tr><td>attractor</td><td>A state the business and system fall into under stress. Stressors that lead to the same one show where the structure is fragile.</td></tr>
+      <tr><td>hyperliminal<br>coupling</td><td>Coupling through the business, not the code. Two independent components can both break when a key customer leaves.</td></tr>
+      <tr><td>incidence<br>matrix</td><td>Stressors as rows, components as columns, a mark where a stressor hits. Matching columns point at hidden coupling.</td></tr>
+      <tr><td>contagion<br>trace</td><td>How a failure spreads from the component a stressor hits, along dependencies and information flows, to the ones coupled to it.</td></tr>
+    </tbody>
+  </table>
+  <p class="fine">Full vocabulary and procedure in <a href="https://github.com/danielmarbach/turtleneck/blob/main/skills/turtleneck/references/residuality.md#vocabulary">residuality.md</a>. Neither author is involved in or endorses this project. Read the books at <a href="https://architectelevator.com">architectelevator.com</a> and <a href="https://leanpub.com/residuality">leanpub.com/residuality</a>. This page only holds the working questions.</p>
+</section>
+
+<hr class="rib">
+
+<section>
   <p class="label">the_gate</p>
   <h2>First, is this architecture at all?</h2>
   <p>It is if any hold: hard to undo once built, closes off futures (a boundary, data ownership, a protocol, a vendor), crosses a team or system boundary, or someone other than the author pays the ongoing cost. Otherwise it is code, and the agent says so in one line and moves on. The protocol below is expensive on purpose and only runs where undo is expensive.</p>
@@ -146,7 +188,7 @@ footer nav a { margin-right: 18px; }
     <li><div><b>Ride the elevator.</b> State the decision on two floors: penthouse (business outcome, who pays) and engine room (what changes, what on-call sees). Missing a floor? Ask. Never fill it with invented domain knowledge.</div></li>
     <li><div><b>Open the solution space.</b> At least three options that differ in kind, always including defer and buy-or-reuse. The option you arrived with gets attacked hardest.</div></li>
     <li><div><b>Stress it.</b> 8 to 12 stressors, business and technical, at least two absurd, no probabilities. Stressors that break the same components reveal hidden coupling. That is where a boundary wants to be.</div></li>
-    <li><div><b>Price the options.</b> Build cost, run cost and who carries it, undo cost, what stays open. Surviving a stressor is a purchase. Name the price.</div></li>
+    <li><div><b>Price the options.</b> Build cost, run cost and who carries it, undo cost, what stays open. Surviving a stressor is a purchase, not a default. Name the price rather than adding resilience everywhere.</div></li>
     <li><div><b>Cross-examine.</b> Elevator pass: which stressors are worth paying for at all? Residuality pass: which price assumes a future you do not know? Keep what survives both.</div></li>
     <li><div><b>Decide or defer.</b> "We give up X to get Y." The observable facts that would flip it. The questions only the owner can answer.</div></li>
   </ol>
@@ -216,36 +258,6 @@ footer nav a { margin-right: 18px; }
 <hr class="rib">
 
 <section>
-  <p class="label">the_two_lenses</p>
-  <h2>Two bodies of work that pull in different directions.</h2>
-  <div class="grid2">
-    <div class="card">
-      <h3>The Architect Elevator</h3>
-      <p>Gregor Hohpe. Architects ride between the penthouse where business decisions happen and the engine room where systems run.</p>
-      <ul>
-        <li>A decision described on one floor is not a decision.</li>
-        <li>Architecture is selling options, and options have a premium.</li>
-        <li>Loose coupling has a price on both sides.</li>
-        <li>New technology punishes bad habits.</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Residuality Theory</h3>
-      <p>Barry O'Reilly. The business environment is not a stable system with knowable probabilities.</p>
-      <ul>
-        <li>Hit the naive design with random stressors, including absurd ones.</li>
-        <li>Let the component structure emerge from what survives.</li>
-        <li>Two components that break under the same stressor are coupled, whether or not the code shows it.</li>
-        <li>No likelihoods. Every stressor is treated as if it will happen.</li>
-      </ul>
-    </div>
-  </div>
-  <p class="fine">They disagree in a useful way. The elevator says resilience is not free and asks who upstairs cares about this stressor. Residuality says your tidy price table assumes you know which future arrives. Rung 5 runs that argument on every decision. Neither author is involved in or endorses this project. Read the books at <a href="https://architectelevator.com">architectelevator.com</a> and <a href="https://leanpub.com/residuality">leanpub.com/residuality</a>. This page only holds the working questions.</p>
-</section>
-
-<hr class="rib">
-
-<section>
   <p class="label">evals</p>
   <h2>Does the model actually follow it?</h2>
   <div class="nums">
@@ -261,7 +273,7 @@ footer nav a { margin-right: 18px; }
 <section>
   <p class="label">lineage</p>
   <h2>Siblings.</h2>
-  <p><a href="https://github.com/DietrichGebert/ponytail">Ponytail</a> decides how little code goes inside the boundary. Turtleneck decides where the boundary goes. They compose; turtleneck's gate hands anything that is not architecture straight back.</p>
+  <p><a href="https://github.com/DietrichGebert/ponytail">Ponytail</a>, another agent skill, decides how little code goes inside the boundary. Turtleneck decides where the boundary goes. They compose; turtleneck's gate hands anything that is not architecture straight back.</p>
   <p>The black turtleneck is the uniform of the person who decides what not to build. <a href="https://github.com/darrenohd/turtleneck">darrenohd/turtleneck</a> got there first with a ponytail sibling for product scoping. This project is unrelated and landed on the same name independently.</p>
 </section>
 

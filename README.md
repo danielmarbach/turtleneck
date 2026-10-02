@@ -20,7 +20,7 @@ accepted trade-off stated as a loss, and the questions only you can answer.
 The output is a one-page decision record, sized to how expensive the
 decision is to undo.
 
-[Ponytail](https://github.com/DietrichGebert/ponytail) makes the agent write less code. Turtleneck makes it stop before
+[Ponytail](https://github.com/DietrichGebert/ponytail), another agent skill, makes the agent write less code. Turtleneck makes it stop before
 the decisions that ponytail tells you not to make lightly: where the
 boundary goes, what the system is coupled to, which future you are closing
 off, and who pays in year three.
@@ -28,11 +28,73 @@ off, and who pays in year three.
 It is a protocol rather than a persona: the model imitates nobody and skips
 no steps.
 
+## The two lenses
+
+The protocol pairs two bodies of work that pull in different directions.
+
+**The Architect Elevator** (Gregor Hohpe). Architects ride between the
+penthouse where business decisions happen and the engine room where systems
+run. A decision described on one floor is not a decision. Architecture is
+selling options, and options have a premium. Here an option is a decision
+kept open for later, as in finance: the less certain the future, the more
+it is worth. The premium is what keeping it open costs now, such as an
+abstraction layer or a second deployment. Coupling has a price on both
+sides: loose coupling adds overhead and makes the flow harder to follow,
+tight coupling makes a change on one side propagate to the other. New
+technology punishes bad habits: it does not fix the habit that made the old
+system painful, so name the habit before you switch. The deliverable is the
+trade-offs, made explicit.
+
+**Residuality Theory** (Barry O'Reilly). The business environment is not a
+stable system with knowable probabilities. So instead of listing likely
+risks, hit the naive design with random stressors, including absurd ones,
+and let the component structure emerge from what survives. Stop when new
+stressors stop producing new design changes. Two components that break
+under the same stressor are coupled, whether or not the code shows it. The
+absurd ones are there because polite ones only find the couplings you
+already suspected.
+
+They disagree in a useful way. The elevator says resilience is not free and
+asks who upstairs cares about this stressor. Residuality says your tidy
+price table assumes you know which future arrives. Rung 5 below runs that
+argument on every decision.
+
+Residuality terms you will see in commands and records:
+
+- **Stressor**: anything in the environment that could change or break the
+  system. Not a risk: no probability, treated as if it will happen.
+- **Residue**: what remains after a stressor hits. What survives, what
+  breaks, and what you would change to survive it.
+- **Attractor**: a state the business and system fall into under stress.
+  Stressors that lead to the same one show where the structure is fragile.
+- **Hyperliminal coupling**: coupling through the business, not the code.
+  Two independent components can both break when a key customer leaves.
+- **Incidence matrix**: stressors as rows, components as columns, a mark
+  where a stressor hits. Matching columns point at hidden coupling.
+- **Contagion trace**: how a failure spreads from the component a stressor
+  hits, along dependencies and information flows, to the ones coupled to it.
+
+Full vocabulary and procedure:
+[skills/turtleneck/references/residuality.md](skills/turtleneck/references/residuality.md#vocabulary).
+
+Neither author is involved in or endorses this project. Read their books.
+This repo only holds the working questions.
+
+- Gregor Hohpe: *The Software Architect Elevator*, *37 Things One Architect
+  Knows About IT Transformation*, *Cloud Strategy*, *Platform Strategy*,
+  *Enterprise Integration Patterns*. [architectelevator.com](https://architectelevator.com)
+- Barry O'Reilly: [*Residues: Time, Change, and Uncertainty in Software
+  Architecture*](https://leanpub.com/residuality) and [*The Architect's
+  Paradox*](https://leanpub.com/architectsparadox). This is the Barry
+  O'Reilly of [Black Tulip Technology](https://www.blacktulip.se), not the
+  author of *Unlearn*.
+
 ## How it works
 
 Before recommending, the agent checks whether the decision is architecture
 at all: hard to undo, closes off futures, crosses a team boundary, or costs
 someone else money to run. If not, it says so in one line and moves on.
+This check is the gate.
 
 If it is, the agent climbs six rungs:
 
@@ -44,7 +106,8 @@ If it is, the agent climbs six rungs:
 3. Stress it               → 8-12 stressors, two of them absurd, no probabilities.
                              Stressors that break the same parts reveal hidden coupling.
 4. Price the options       → build, run and who pays, undo, what stays open.
-                             Surviving a stressor is a purchase. Name the price.
+                             Surviving a stressor is a purchase, not a default.
+                             Name the price rather than adding resilience everywhere.
 5. Cross-examine           → elevator pass: which stressors are worth paying for?
                              residuality pass: which price assumes a known future?
 6. Decide or defer         → "we give up X to get Y", flip conditions,
@@ -133,41 +196,6 @@ always-on ruleset works without the commands.
 
 All adapters point at the same `skills/` folder, with no hooks and no
 extension code.
-
-## The two lenses
-
-The protocol pairs two bodies of work that pull in different directions.
-
-**The Architect Elevator** (Gregor Hohpe). Architects ride between the
-penthouse where business decisions happen and the engine room where systems
-run. A decision described on one floor is not a decision. Architecture is
-selling options, and options have a premium. Loose coupling has a price on
-both sides. New technology punishes bad habits. The deliverable is the
-trade-offs, made explicit.
-
-**Residuality Theory** (Barry O'Reilly). The business environment is not a
-stable system with knowable probabilities. So instead of listing likely
-risks, hit the naive design with random stressors, including absurd ones,
-and let the component structure emerge from what survives. Two components
-that break under the same stressor are coupled, whether or not the code
-shows it.
-
-They disagree in a useful way. The elevator says resilience is not free and
-asks who upstairs cares about this stressor. Residuality says your tidy
-price table assumes you know which future arrives. Rung 5 runs that
-argument on every decision.
-
-Neither author is involved in or endorses this project. Read their books.
-This repo only holds the working questions.
-
-- Gregor Hohpe: *The Software Architect Elevator*, *37 Things One Architect
-  Knows About IT Transformation*, *Cloud Strategy*, *Platform Strategy*,
-  *Enterprise Integration Patterns*. [architectelevator.com](https://architectelevator.com)
-- Barry O'Reilly: [*Residues: Time, Change, and Uncertainty in Software
-  Architecture*](https://leanpub.com/residuality) and [*The Architect's
-  Paradox*](https://leanpub.com/architectsparadox). This is the Barry
-  O'Reilly of [Black Tulip Technology](https://www.blacktulip.se), not the
-  author of *Unlearn*.
 
 ## With ponytail
 

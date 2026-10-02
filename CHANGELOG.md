@@ -6,6 +6,11 @@ scorecard; the judge mean is part of the entry. Release steps: RELEASING.md.
 
 ## Unreleased
 
+- README and homepage explain the lens vocabulary before using it: the two
+  lenses come before the protocol, a short glossary defines the residuality
+  terms and links to the full vocabulary, and the terse lines on options,
+  coupling, new technology, and absurd stressors say why. A courtesy of @cquiros
+
 ## 0.2.0 - 2026-09-30
 
 Fidelity audit against the published source material.
